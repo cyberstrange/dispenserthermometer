@@ -1,0 +1,22 @@
+{
+  "storage_version": 1,
+  "name": "nodemcuufg",
+  "comment": null,
+  "esphome_version": "1.15.1",
+  "src_version": 1,
+  "arduino_version": "espressif32@1.12.4",
+  "address": "192.168.10.37",
+  "esp_platform": "ESP32",
+  "board": "esp32doit-devkit-v1",
+  "build_path": "/config/esphome/nodemcuufg",
+  "firmware_bin_path": "/data/nodemcuufg/.pioenvs/nodemcuufg/firmware.bin",
+  "loaded_integrations": [
+    "custom",
+    "esphome",
+    "network",
+    "ota",
+    "sensor",
+    "ultrasonic",
+    "wifi"
+  ]
+}
