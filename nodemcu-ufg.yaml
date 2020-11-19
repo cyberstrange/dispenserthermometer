@@ -1,0 +1,56 @@
+esphome:
+  name: nodemcuufg
+  platform: ESP32
+  board: esp32doit-devkit-v1
+  
+  includes:
+   - "mlx90614_sensor.h"
+  libraries:
+   - "Adafruit MLX90614 Library"
+  
+wifi:
+  ssid: "Wifi 2.4g"
+  password: "senha"
+
+  manual_ip:
+    # Set this to the IP of the ESP
+    static_ip: 192.168.10.37
+    # Set this to the IP address of the router. Often ends with .1
+    gateway: 192.168.10.1
+    # The subnet of the network. 255.255.255.0 works for most home networks.
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Nodemcu1 Fallback Hotspot"
+    password: "2E0mKxU4TxdN"
+    
+ota:
+  password: "mypass"
+
+sensor:
+
+# MLX90614Sensor
+  - platform: custom
+    lambda: |-
+      auto mlx90614_sensor = new MLX90614Sensor();
+      App.register_component(mlx90614_sensor);
+      return {mlx90614_sensor->ambient_temperature_sensor, mlx90614_sensor->object_temperature_sensor};
+    sensors:
+      - name: "Ambient Temperature"
+        unit_of_measurement: °C
+        accuracy_decimals: 1
+      - name: "Object Temperature"
+        unit_of_measurement: °C
+        accuracy_decimals: 1
+        
+# HC-SRO4 Ultrasonic Sensor
+  - platform: ultrasonic
+    id: sensor_nivel_material
+    trigger_pin: GPIO05
+    echo_pin: GPIO04
+    name: "Sensor de Nivel de Material"
+    update_interval: 60s
+    filters:
+      filter_out: nan
+    timeout: 9m
