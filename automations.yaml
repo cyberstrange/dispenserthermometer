@@ -1,0 +1,24 @@
+automation:
+  - alias: campainha
+    initial_state: true
+    #gatilho - estando o sensor ativo
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.febril
+        from: 'off'
+        to: 'on'
+    condition: []
+    action:
+      - service: media_player.play_media
+        data:
+          entity_id: media_player.musics
+          media_content_id: https://dispenserthermometer.duckdns.org:8123/config/tts/buzzer_febril.mp3
+          #media_content_id: https://dispenserthermometer.duckdns.org/config/tts/buzzer_febril.mp3
+          volume_level: 2
+          media_content_type: 'music'
+      - delay:
+          seconds: 45
+      #- service: tts.google_translate_say
+      #  data_template:
+      #    entity_id: media_player.musics
+      #    message: 'Estado febril. Cuidado!!!'
