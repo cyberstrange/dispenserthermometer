@@ -1,0 +1,101 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+#habilita o acesso http
+http:
+    server_port: 8123
+  #api_password: !secret http_password
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+  #ip_ban_enabled: true
+  #login_attempts_threshold: 3
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+#habilita o modo lovelace no yaml - dois espaços até o modde:
+lovelace:
+  mode: yaml
+# criar arquivo ui-lovelace.yaml
+
+group: !include groups.yaml
+#documentado para o uso do arquivo manual
+#automation: !include automations.yaml
+#script: !ui-lovelace.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: homeassistant
+  password: homeassistant
+  max_retries: 3
+  default_measurement: state
+
+#Habilita o modo mqtt
+mqtt:
+  broker: 192.168.10.38
+  port: 1883
+# client_id: home-assistant-local
+# Tempo de atividade do mqtt em 5 minutos (300 segundos)
+# keepalive: 300 - descometei e apareceu um erro, ver  questão da identação depois
+# Note: atenção com a necessidade da aspa simples em algumas versões do HA
+  username: '!secret username'
+  password: '!secret password'
+#integracao MQTT com HA
+# certificate: /home/paulus/dev/addtrustexternalcaroot.crt
+#   client_key: /home/user/owntracks/cookie.key
+#   client_cert: /home/user/owntracks/cookie.crt
+#descoberta de dispositivo
+# discovery: true
+# discovery_prefix: homeassistant
+
+#config dispositivos mqtt
+# https://www.home-assistant.io/integrations/binary_sensor.mqtt/
+#tipos de sensores binarios
+#https://www.home-assistant.io/integrations/binary_sensor/#device-class
+#Definição das Entidades
+#componente - sensor
+sensor:
+  - platform: mqtt
+    device_class: temperature
+    name: "Temperatura corporal"
+    state_topic: sensor/temperatura
+    value_template: '{{ value_json.inPress }}'
+    unit_of_measurement: '°C'
+    qos: 1    
+  - platform: mqtt
+    device_class: humidity
+    name: "Nivel de material"
+    state_topic: sensor/material
+    value_template: '{{ value_json.inMat }}'
+    unit_of_measurement: '%'
+    qos: 1
+
+binary_sensor:
+  - platform: mqtt
+    device_class: moving
+    name: "Normal"
+    state_topic: light/normal
+    value_template: '{{ value_json.state }}'
+    qos: 1
+    
+  - platform: mqtt
+    device_class: moving
+    name: "Febril"
+    state_topic: light/vermelho
+    value_template: '{{ value_json.state }}'
+    qos: 1
+    
+  - platform: mqtt
+    device_class: moving
+    name: "Disponivel"
+    state_topic: light/azul
+    value_template: '{{ value_json.state }}'
+    qos: 1
+    
+    

@@ -1,0 +1,141 @@
+# Aqui é onde você adicionar os cards que não são nativos, 
+#ou seja, que são cards customizados e disponibilizados pela comunidade.
+#resources:
+
+# título para as páginas/telas
+title: INF/UFG CONTRA COVID-19
+
+# pode definir um plano de fundo para as páginas.
+background: center / cover no-repeat url("/local/background.png") fixed
+# nesse caso, a imagem "background.png" deve estar dentro da pasta www para mostrar na sua tela.
+
+# views "visões" - Tela ou página (entenda Abas) onde será acrescentados os objetos.
+views:
+    # Página 01 - Nome da Aba como Afericao
+  - title: Afericao
+    # none no final da URL para a Aba o termo "covid19" - Exemplo: /lovelace/${path}
+    path: covid19
+    # colocar somente um icone no local do nome de Aba.
+    #icon: mdi:home-assistant
+
+    # Plano de fundo opcional (sobrescreve o plano de fundo global). Você pode adicionar um plano de fundo diferente para cada página. BACKGROUND: É opcional, não é obrigado a definir.
+    #background: radial-gradient(crimson, skyblue)
+    
+    # Inclusive, cada view pode ter um tema diferente aplicado. O tema deve ser definido no frontend. THEME: É opcional, não é obrigado a definir.
+    #theme: dark-mode
+
+  #- title: Horizontal
+    #panel: true
+    #cards:
+      #- type: custom:layout-card
+        #layout: horizontal
+        #cards:
+           #- type: entities
+            #entities:
+              #- binary_sensor.door_window_sensor_158d0001f3a162
+          #- type: entities
+            #entities:
+              #- binary_sensor.door_window_sensor_158d0001f3a162
+
+    #cards "cartões" - são os box onde pode acrescentar uma entidade ou mais.
+    cards:
+      # CARD 01
+      # O cartão de remarcação (markdown) renderiza o texto na tela.
+      - type: markdown
+        
+        title: Prevenção da UFG
+        content: >
+          Bem vindo! Em caso indicativo febril, aguarde por 1 minuto e refaça a aferição.
+          Em duplicidade do indicativo febril busque um auxílio médico.
+
+      # CARD 02
+      # O cartão de entidades terá uma lista de entidades com VALORES recebidos pelos tópicos.
+      - type: entities
+        # Título do cartão de entidades
+        title: Última Aferição 
+        # Lista de entidades na box.
+        entities:
+          - sensor.temperatura_corporal
+          - sensor.nivel_de_material
+          - binary_sensor.disponivel
+      
+      # CARD 03
+      # O cartão de entidades terá uma lista de entidades com ESTADOS (status) recebidos pelos tópicos.          
+      - type: glance
+        # Lista de entidades na box.
+        show_header_toggle: false
+        entities:
+          - binary_sensor.normal
+          - binary_sensor.febril
+        #retirar o texto do icones somente no cartão 03
+        show_state: false
+        #
+        #show_header_toggle: false
+        #permitir a mudança de cores nos icones no cartão 03 quando da mudança de estados - status.
+        state_color: true
+
+
+#views:
+    # Página 01 - Nome da Aba como Afericao
+  - title: Totem
+    # none no final da URL para a Aba o termo "covid19" - Exemplo: /lovelace/${path}
+    path: covid
+    # colocar somente um icone no local do nome de Aba.
+    #icon: mdi:home-assistant
+
+    # Plano de fundo opcional (sobrescreve o plano de fundo global). Você pode adicionar um plano de fundo diferente para cada página. BACKGROUND: É opcional, não é obrigado a definir.
+    #background: radial-gradient(crimson, skyblue)
+    
+    # Inclusive, cada view pode ter um tema diferente aplicado. O tema deve ser definido no frontend. THEME: É opcional, não é obrigado a definir.
+    #theme: dark-mode
+
+  #- title: Horizontal
+    #panel: true
+    #cards:
+      #- type: custom:layout-card
+        #layout: horizontal
+        #cards:
+           #- type: entities
+            #entities:
+              #- binary_sensor.door_window_sensor_158d0001f3a162
+          #- type: entities
+            #entities:
+              #- binary_sensor.door_window_sensor_158d0001f3a162
+
+    #cards "cartões" - são os box onde pode acrescentar uma entidade ou mais.
+    cards:
+      # CARD 01
+      # O cartão de remarcação (markdown) renderiza o texto na tela.
+      - type: markdown
+        
+        title: Prevenção da UFG
+        content: >
+          Bem vindo! Em caso indicativo febril, aguarde por 1 minuto e refaça a aferição.
+          Em duplicidade do indicativo febril busque um auxílio médico.
+
+      # CARD 02
+      # O cartão de entidades terá uma lista de entidades com VALORES recebidos pelos tópicos.
+      - type: entities
+        # Título do cartão de entidades
+        title: Última Aferição 
+        # Lista de entidades na box.
+        entities:
+          - sensor.temperatura_corporal
+          - sensor.nivel_de_material
+          - binary_sensor.disponivel
+      
+      # CARD 03
+      # O cartão de entidades terá uma lista de entidades com ESTADOS (status) recebidos pelos tópicos.          
+      - type: glance
+        # Lista de entidades na box.
+        show_header_toggle: false
+        entities:
+          - binary_sensor.normal
+          - binary_sensor.febril
+          
+        #retirar o texto do icones somente no cartão 03
+        show_state: false
+        #show_header_toggle: false
+        #permitir a mudança de cores nos icones no cartão 03 quando da mudança de estados - status.
+        state_color: true
+              
